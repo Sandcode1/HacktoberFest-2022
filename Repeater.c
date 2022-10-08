@@ -44,3 +44,23 @@ int main() {
   pop(stack, &top, stackSize);
   return 0;
 }
+
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+while(true)
+     {
+     int Number;
+     cout << "enter a number to repeat.\n";
+     cin >> Number;
+     for(int PrintEight = 0;PrintEight < 8;PrintEight++)
+        {
+        cout << Number;         
+        }      
+     cout << endl;
+     }
+return 0;
+}
