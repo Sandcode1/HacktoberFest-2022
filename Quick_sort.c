@@ -1,49 +1,71 @@
-//quick sort implementation using c by Dhyey.
-#include<stdio.h>
-void quicksort(int number[25],int first,int last){
-   int i, j, pivot, temp;
+// C++ Implementation of the Quick Sort Algorithm.
+#include <iostream>
+using namespace std;
 
-   if(first<last){
-      pivot=first;
-      i=first;
-      j=last;
+int partition(int arr[], int start, int end)
+{
 
-      while(i<j){
-         while(number[i]<=number[pivot]&&i<last)
-            i++;
-         while(number[j]>number[pivot])
-            j--;
-         if(i<j){
-            temp=number[i];
-            number[i]=number[j];
-            number[j]=temp;
-         }
-      }
+	int pivot = arr[start];
 
-      temp=number[pivot];
-      number[pivot]=number[j];
-      number[j]=temp;
-      quicksort(number,first,j-1);
-      quicksort(number,j+1,last);
+	int count = 0;
+	for (int i = start + 1; i <= end; i++) {
+		if (arr[i] <= pivot)
+			count++;
+	}
 
-   }
+	// Giving pivot element its correct position
+	int pivotIndex = start + count;
+	swap(arr[pivotIndex], arr[start]);
+
+	// Sorting left and right parts of the pivot element
+	int i = start, j = end;
+
+	while (i < pivotIndex && j > pivotIndex) {
+
+		while (arr[i] <= pivot) {
+			i++;
+		}
+
+		while (arr[j] > pivot) {
+			j--;
+		}
+
+		if (i < pivotIndex && j > pivotIndex) {
+			swap(arr[i++], arr[j--]);
+		}
+	}
+
+	return pivotIndex;
 }
 
-int main(){
-   int i, count, number[25];
+void quickSort(int arr[], int start, int end)
+{
 
-   printf("How many elements are u going to enter?: ");
-   scanf("%d",&count);
+	// base case
+	if (start >= end)
+		return;
 
-   printf("Enter %d elements: ", count);
-   for(i=0;i<count;i++)
-      scanf("%d",&number[i]);
+	// partitioning the array
+	int p = partition(arr, start, end);
 
-   quicksort(number,0,count-1);
+	// Sorting the left part
+	quickSort(arr, start, p - 1);
 
-   printf("Order of Sorted elements: ");
-   for(i=0;i<count;i++)
-      printf(" %d",number[i]);
+	// Sorting the right part
+	quickSort(arr, p + 1, end);
+}
 
-   return 0;
+int main()
+{
+
+	int arr[] = { 9, 3, 4, 2, 1, 8 };
+	int n = 6;
+
+	quickSort(arr, 0, n - 1);
+
+	for (int i = 0; i < n; i++) {
+		cout << arr[i] << " ";
+	}
+
+	return 0;
 }
